@@ -1,9 +1,14 @@
 from flask import Flask, request, jsonify, render_template
 from lexer import tokenize
 from parser import parse
+from semantic import analyze_semantics
+from optimizer import optimize_ast
+from interpreter import interpret
 from errors import RoyalProtocolViolation
 import traceback
 import os
+import sys
+import io
 
 app = Flask(__name__)
 
@@ -27,7 +32,21 @@ def parse_code():
         tokens = tokenize(code)
         tokens_list = [{"type": t.type, "value": t.value, "line": t.line, "col": t.column} for t in tokens]
         ast = parse(tokens)
-        return jsonify({"success": True, "tokens": tokens_list, "ast": ast})
+        
+        analyze_semantics(ast)
+        opt_ast = optimize_ast(ast)
+        
+        old_stdout = sys.stdout
+        new_stdout = io.StringIO()
+        sys.stdout = new_stdout
+        try:
+            interpret(opt_ast)
+        finally:
+            sys.stdout = old_stdout
+            
+        output = new_stdout.getvalue()
+        
+        return jsonify({"success": True, "tokens": tokens_list, "ast": opt_ast, "output": output})
     except RoyalProtocolViolation as e:
         return jsonify({"success": False, "error": str(e), "line": e.line, "col": e.column})
     except Exception as e:

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorBox = document.getElementById('error-box');
     const tokensContainer = document.getElementById('tokens-container');
     const astContainer = document.getElementById('ast-container');
+    const executionOutput = document.getElementById('execution-output');
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -68,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.success) {
                 renderTokens(data.tokens);
                 renderAST(data.ast);
+                executionOutput.textContent = data.output || "No output generated.";
             } else {
                 showError(data.error);
             }
@@ -84,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         errorBox.classList.remove('hidden');
         tokensContainer.innerHTML = '';
         astContainer.innerHTML = '';
+        executionOutput.textContent = '';
     }
 
     function renderTokens(tokens) {

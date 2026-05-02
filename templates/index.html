@@ -47,6 +47,7 @@ AllahHafiz</textarea>
                         <div class="tabs">
                             <button class="tab-btn active" data-target="ast-view">Abstract Syntax Tree</button>
                             <button class="tab-btn" data-target="tokens-view">Lexer Tokens</button>
+                            <button class="tab-btn" data-target="execution-view">Execution Output</button>
                         </div>
                         <button id="back-btn" class="regal-btn outline">Return to Decree</button>
                     </div>
@@ -59,6 +60,10 @@ AllahHafiz</textarea>
                     
                     <div class="tab-content" id="tokens-view">
                         <div id="tokens-container"></div>
+                    </div>
+
+                    <div class="tab-content" id="execution-view">
+                        <pre id="execution-output" style="color: #a6e22e; font-family: 'JetBrains Mono', monospace; margin: 0; white-space: pre-wrap; font-size: 1.1rem;"></pre>
                     </div>
                 </section>
             </div>

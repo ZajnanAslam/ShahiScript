@@ -1,7 +1,6 @@
 Bismillah
     jumla daulat name = darkhwast("What is your name, traveler? ");
     
-    farman "Greetings, Shahi ";
-    farman name;
+    farman "Greetings, Shahi " + name;
     farman "Welcome to the Royal Compiler!";
 AllahHafiz

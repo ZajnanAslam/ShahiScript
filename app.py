@@ -9,6 +9,7 @@ import traceback
 import os
 import sys
 import io
+import builtins
 
 app = Flask(__name__)
 
@@ -39,10 +40,15 @@ def parse_code():
         old_stdout = sys.stdout
         new_stdout = io.StringIO()
         sys.stdout = new_stdout
+        
+        old_input = builtins.input
+        builtins.input = lambda prompt="": "Royal Guest"
+        
         try:
             interpret(opt_ast)
         finally:
             sys.stdout = old_stdout
+            builtins.input = old_input
             
         output = new_stdout.getvalue()
         

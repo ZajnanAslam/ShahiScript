@@ -4,9 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const parseBtn = document.getElementById('parse-btn');
     const backBtn = document.getElementById('back-btn');
+    const viewAstBtn = document.getElementById('view-ast-btn');
     const exampleSelect = document.getElementById('example-select');
     
     const codeEditor = document.getElementById('code-editor');
+    const stdInput = document.getElementById('std-input');
     const errorBox = document.getElementById('error-box');
     const tokensContainer = document.getElementById('tokens-container');
     const astContainer = document.getElementById('ast-container');
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     backBtn.addEventListener('click', showCodeEditor);
+    viewAstBtn.addEventListener('click', showVisualizer);
 
     // Tabs logic
     tabBtns.forEach(btn => {
@@ -53,18 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     parseBtn.addEventListener('click', async () => {
         const code = codeEditor.value;
-        parseBtn.textContent = 'Parsing...';
+        const stdin = stdInput.value;
+        parseBtn.textContent = 'Running...';
         errorBox.classList.add('hidden');
         
         try {
             const res = await fetch('/parse', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code })
+                body: JSON.stringify({ code, stdin })
             });
             const data = await res.json();
-            
-            showVisualizer();
 
             if (data.success) {
                 renderTokens(data.tokens);
@@ -72,10 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 executionOutput.textContent = data.output || "No output generated.";
             } else {
                 showError(data.error);
+                // Also show error in execution output for visibility
+                executionOutput.textContent = "Error:\n" + data.error;
             }
         } catch (e) {
-            showVisualizer();
             showError("Network or Server error.");
+            executionOutput.textContent = "Network or Server error.";
         }
         
         parseBtn.textContent = 'Issue Decree';
@@ -86,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         errorBox.classList.remove('hidden');
         tokensContainer.innerHTML = '';
         astContainer.innerHTML = '';
-        executionOutput.textContent = '';
     }
 
     function renderTokens(tokens) {

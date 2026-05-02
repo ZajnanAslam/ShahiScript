@@ -28,6 +28,7 @@ def index():
 def parse_code():
     data = request.json
     code = data.get('code', '')
+    stdin_str = data.get('stdin', '')
     
     try:
         tokens = tokenize(code)
@@ -42,7 +43,20 @@ def parse_code():
         sys.stdout = new_stdout
         
         old_input = builtins.input
-        builtins.input = lambda prompt="": "Royal Guest"
+        
+        input_lines = stdin_str.replace('\r\n', '\n').split('\n')
+        input_iter = iter(input_lines)
+        
+        def mock_input(prompt=""):
+            print(prompt, end="")
+            try:
+                val = next(input_iter)
+                print(val)
+                return val
+            except StopIteration:
+                return ""
+                
+        builtins.input = mock_input
         
         try:
             interpret(opt_ast)

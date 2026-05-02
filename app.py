@@ -3,12 +3,20 @@ from lexer import tokenize
 from parser import parse
 from errors import RoyalProtocolViolation
 import traceback
+import os
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    examples = {}
+    examples_dir = 'examples'
+    if os.path.exists(examples_dir):
+        for filename in sorted(os.listdir(examples_dir)):
+            if filename.endswith('.shahi'):
+                with open(os.path.join(examples_dir, filename), 'r', encoding='utf-8') as f:
+                    examples[filename] = f.read()
+    return render_template('index.html', examples=examples)
 
 @app.route('/parse', methods=['POST'])
 def parse_code():

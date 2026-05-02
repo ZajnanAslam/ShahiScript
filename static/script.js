@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const parseBtn = document.getElementById('parse-btn');
     const backBtn = document.getElementById('back-btn');
+    const exampleSelect = document.getElementById('example-select');
     
     const codeEditor = document.getElementById('code-editor');
     const errorBox = document.getElementById('error-box');
@@ -37,6 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('active');
             document.getElementById(btn.dataset.target).classList.add('active');
         });
+    });
+
+    // Example selector logic
+    exampleSelect.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (val !== 'custom' && examplesData[val]) {
+            codeEditor.value = examplesData[val];
+        } else if (val === 'custom') {
+            codeEditor.value = `Bismillah\n    // Enter your custom royal decree here\nAllahHafiz`;
+        }
     });
 
     parseBtn.addEventListener('click', async () => {

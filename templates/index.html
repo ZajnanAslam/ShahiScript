@@ -21,7 +21,15 @@
                 <section class="editor-section panel">
                     <div class="panel-header">
                         <h2>Royal Decree (Code)</h2>
-                        <button id="parse-btn" class="regal-btn">Issue Decree</button>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <select id="example-select" class="regal-select">
+                                <option value="custom">Custom Decree</option>
+                                {% for name, content in examples.items() %}
+                                <option value="{{ name }}">{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button id="parse-btn" class="regal-btn">Issue Decree</button>
+                        </div>
                     </div>
                     <textarea id="code-editor" spellcheck="false">Bismillah
     adad daulat royalty = 100;
@@ -56,6 +64,9 @@ AllahHafiz</textarea>
             </div>
         </main>
     </div>
+    <script>
+        const examplesData = {{ examples | tojson }};
+    </script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

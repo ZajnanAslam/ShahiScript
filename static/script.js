@@ -84,38 +84,54 @@ document.addEventListener('DOMContentLoaded', () => {
         astContainer.innerHTML = ''; // Clear previous
         const hierarchyData = buildHierarchy(astData);
         
-        const width = 800;
         const dx = 50;
-        const dy = width / 6;
-        const margin = {top: 20, right: 120, bottom: 20, left: 120};
+        const dy = 150; // fixed horizontal distance between nodes
 
         const tree = d3.tree().nodeSize([dx, dy]);
         const diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x);
 
         const root = d3.hierarchy(hierarchyData);
-        root.x0 = dy / 2;
+        root.x0 = 0;
         root.y0 = 0;
         root.descendants().forEach((d, i) => {
             d.id = i;
             d._children = d.children;
         });
 
+        // Setup SVG
+        const containerRect = astContainer.getBoundingClientRect();
+        const width = containerRect.width || 800;
+        const height = containerRect.height || 600;
+
         const svg = d3.select("#ast-container").append("svg")
-            .attr("width", width)
-            .attr("height", dx)
-            .attr("viewBox", [-margin.left, -margin.top, width, dx])
-            .style("max-width", "100%")
-            .style("height", "auto")
+            .attr("width", "100%")
+            .attr("height", "100%")
             .style("font", "12px sans-serif")
             .style("user-select", "none");
 
-        const gLink = svg.append("g")
+        // The group containing everything that moves with zoom
+        const g = svg.append("g");
+
+        // Zoom setup
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 4])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // Center the root node initially
+        const initialTransform = d3.zoomIdentity.translate(width / 4, height / 2).scale(1);
+        svg.call(zoom.transform, initialTransform);
+
+        const gLink = g.append("g")
             .attr("fill", "none")
             .attr("stroke", "#d4af37")
             .attr("stroke-opacity", 0.4)
             .attr("stroke-width", 1.5);
 
-        const gNode = svg.append("g")
+        const gNode = g.append("g")
             .attr("cursor", "pointer")
             .attr("pointer-events", "all");
 
@@ -126,18 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             tree(root);
 
-            let left = root;
-            let right = root;
-            root.eachBefore(node => {
-                if (node.x < left.x) left = node;
-                if (node.x > right.x) right = node;
-            });
-
-            const height = right.x - left.x + margin.top + margin.bottom;
-            const transition = svg.transition().duration(duration)
-                .attr("height", height)
-                .attr("viewBox", [-margin.left, left.x - margin.top, width, height])
-                .tween("resize", window.ResizeObserver ? null : () => () => svg.dispatch("toggle"));
+            const transition = svg.transition().duration(duration);
 
             const node = gNode.selectAll("g")
                 .data(nodes, d => d.id);

@@ -47,6 +47,7 @@ header {
     padding: 2rem;
     border-bottom: 1px solid var(--glass-border);
     background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+    flex-shrink: 0;
 }
 
 header h1 {
@@ -65,9 +66,20 @@ header p {
 
 .dashboard {
     display: flex;
-    flex-direction: column;
     flex: 1;
     overflow: hidden;
+    position: relative;
+}
+
+.view-page {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.view-page.active {
+    display: flex;
 }
 
 .panel {
@@ -75,12 +87,6 @@ header p {
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    border-bottom: 1px solid var(--glass-border);
-}
-
-.panel:last-child {
-    border-bottom: none;
-    flex: 1.5;
 }
 
 .panel-header {
@@ -110,6 +116,15 @@ header p {
     box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
 }
 
+.regal-btn.outline {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+}
+.regal-btn.outline:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
 textarea {
     flex: 1;
     background: var(--code-bg);
@@ -126,7 +141,6 @@ textarea {
 .tabs {
     display: flex;
     gap: 1rem;
-    margin-bottom: 1rem;
 }
 
 .tab-btn {
@@ -160,6 +174,10 @@ textarea {
     display: block;
 }
 
+.hidden {
+    display: none !important;
+}
+
 #error-box {
     background: rgba(255, 75, 75, 0.1);
     border: 1px solid var(--error-color);
@@ -168,10 +186,6 @@ textarea {
     border-radius: 8px;
     margin-bottom: 1rem;
     font-family: 'JetBrains Mono', monospace;
-}
-
-.hidden {
-    display: none !important;
 }
 
 #ast-container {

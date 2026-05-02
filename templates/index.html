@@ -16,35 +16,44 @@
         </header>
 
         <main class="dashboard">
-            <section class="editor-section panel">
-                <div class="panel-header">
-                    <h2>Royal Decree (Code)</h2>
-                    <button id="parse-btn" class="regal-btn">Issue Decree</button>
-                </div>
-                <textarea id="code-editor" spellcheck="false">Bismillah
+            <!-- PAGE 1: Code Editor -->
+            <div id="page-code" class="view-page active">
+                <section class="editor-section panel">
+                    <div class="panel-header">
+                        <h2>Royal Decree (Code)</h2>
+                        <button id="parse-btn" class="regal-btn">Issue Decree</button>
+                    </div>
+                    <textarea id="code-editor" spellcheck="false">Bismillah
     adad daulat royalty = 100;
     agar (royalty > 50) phir
         farman "Welcome to the court";
     khatam;
 AllahHafiz</textarea>
-            </section>
+                </section>
+            </div>
 
-            <section class="output-section panel">
-                <div class="tabs">
-                    <button class="tab-btn active" data-target="ast-view">Abstract Syntax Tree</button>
-                    <button class="tab-btn" data-target="tokens-view">Lexer Tokens</button>
-                </div>
-                
-                <div id="error-box" class="hidden"></div>
-                
-                <div class="tab-content active" id="ast-view">
-                    <div id="ast-container"></div>
-                </div>
-                
-                <div class="tab-content" id="tokens-view">
-                    <div id="tokens-container"></div>
-                </div>
-            </section>
+            <!-- PAGE 2: Visualizer -->
+            <div id="page-visualizer" class="view-page hidden">
+                <section class="output-section panel">
+                    <div class="panel-header">
+                        <div class="tabs">
+                            <button class="tab-btn active" data-target="ast-view">Abstract Syntax Tree</button>
+                            <button class="tab-btn" data-target="tokens-view">Lexer Tokens</button>
+                        </div>
+                        <button id="back-btn" class="regal-btn outline">Return to Decree</button>
+                    </div>
+                    
+                    <div id="error-box" class="hidden"></div>
+                    
+                    <div class="tab-content active" id="ast-view">
+                        <div id="ast-container"></div>
+                    </div>
+                    
+                    <div class="tab-content" id="tokens-view">
+                        <div id="tokens-container"></div>
+                    </div>
+                </section>
+            </div>
         </main>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>

@@ -1,11 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const pageCode = document.getElementById('page-code');
+    const pageVisualizer = document.getElementById('page-visualizer');
+    
     const parseBtn = document.getElementById('parse-btn');
+    const backBtn = document.getElementById('back-btn');
+    
     const codeEditor = document.getElementById('code-editor');
     const errorBox = document.getElementById('error-box');
     const tokensContainer = document.getElementById('tokens-container');
     const astContainer = document.getElementById('ast-container');
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
+
+    // View Switching Logic
+    function showVisualizer() {
+        pageCode.classList.remove('active');
+        pageCode.classList.add('hidden');
+        pageVisualizer.classList.remove('hidden');
+        pageVisualizer.classList.add('active');
+    }
+
+    function showCodeEditor() {
+        pageVisualizer.classList.remove('active');
+        pageVisualizer.classList.add('hidden');
+        pageCode.classList.remove('hidden');
+        pageCode.classList.add('active');
+    }
+
+    backBtn.addEventListener('click', showCodeEditor);
 
     // Tabs logic
     tabBtns.forEach(btn => {
@@ -30,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             
+            showVisualizer();
+
             if (data.success) {
                 renderTokens(data.tokens);
                 renderAST(data.ast);
@@ -37,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showError(data.error);
             }
         } catch (e) {
+            showVisualizer();
             showError("Network or Server error.");
         }
         

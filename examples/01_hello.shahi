@@ -1,0 +1,5 @@
+Bismillah
+    farman "Welcome to the Royal Court!";
+    daulat msg = "The compiler is running.";
+    farman msg;
+AllahHafiz

@@ -1,0 +1,13 @@
+Bismillah
+    farman "Counting from 0 to 2:";
+    har (adad daulat i = 0; i < 3; i = i + 1) phir
+        farman i;
+    khatam;
+    
+    farman "While Loop:";
+    adad daulat count = 3;
+    jab_tak (count > 0) phir
+        farman count;
+        count = count - 1;
+    khatam;
+AllahHafiz

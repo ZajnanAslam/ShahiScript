@@ -1,0 +1,9 @@
+Bismillah
+    hukam square(n) {
+        waapsi n * n;
+        farman "This is dead code and will be eliminated!";
+    }
+    
+    farman "Square of 4 is:";
+    farman square(4);
+AllahHafiz

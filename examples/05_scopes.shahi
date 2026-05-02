@@ -1,0 +1,11 @@
+Bismillah
+    adad daulat x = 100;
+    agar (sach) phir
+        adad daulat x = 50;
+        farman "Inside scope x:";
+        farman x;
+    khatam;
+    
+    farman "Outside scope x:";
+    farman x;
+AllahHafiz

@@ -1,0 +1,9 @@
+Bismillah
+    farman "Testing Constant Folding:";
+    adad daulat x = 10 + 20 * 2;
+    farman x;
+    
+    agar (10 > 5) phir
+        farman "Math works!";
+    khatam;
+AllahHafiz

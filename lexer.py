@@ -6,15 +6,35 @@ TOKEN_SPEC = [
     ('BISMILLAH',   r'\bBismillah\b'),        # Start of program
     ('ALLAH_HAFIZ', r'\bAllahHafiz\b'),       # End of program
     ('DAULAT',      r'\bdaulat\b'),           # Variable declaration
+    ('HUKAM',       r'\bhukam\b'),            # Function
+    ('WAAPSI',      r'\bwaapsi\b'),           # Return
+    ('JAB_TAK',     r'\bjab_tak\b'),          # While
+    ('DOHRAO',      r'\bdohrao\b'),           # Do / Repeat
+    ('HAR',         r'\bhar\b'),              # For
+    ('WARNA_AGAR',  r'\bwarna_agar\b'),       # Else if
     ('AGAR',        r'\bagar\b'),             # If
     ('PHIR',        r'\bphir\b'),             # Then
     ('VARNA',       r'\bvarna\b'),            # Else
     ('FARMAN',      r'\bfarman\b'),           # Print
+    ('DARKHWAST',   r'\bdarkhwast\b'),        # Input
     ('KHATAM',      r'\bkhatam\b'),           # End of block
+    ('SACH',        r'\bsach\b'),             # True
+    ('GHALAT',      r'\bghalat\b'),           # False
+    ('ADAD',        r'\badad\b'),             # Int type
+    ('ASHARIYA',    r'\bashariya\b'),         # Float type
+    ('JUMLA',       r'\bjumla\b'),            # String type
+    ('HAQEEQAT',    r'\bhaqeeqat\b'),         # Bool type
+    ('FEHRIST',     r'\bfehrist\b'),          # Array type
     ('IDENTIFIER',  r'[A-Za-z_][A-Za-z0-9_]*'), # Identifiers
     ('NUMBER',      r'\d+(\.\d*)?'),          # Integer or decimal number
     ('STRING',      r'"[^"]*"'),              # String literal
+    ('EQEQ',        r'=='),                   # Equal to
+    ('NOTEQ',       r'!='),                   # Not equal to
     ('EQUALS',      r'='),                    # Assignment
+    ('PLUS',        r'\+'),                   # Addition
+    ('MINUS',       r'-'),                    # Subtraction
+    ('STAR',        r'\*'),                   # Multiplication
+    ('SLASH',       r'/'),                    # Division
     ('GT',          r'>'),                    # Greater than
     ('LT',          r'<'),                    # Less than
     ('SEMI',        r';'),                    # Statement terminator
@@ -22,6 +42,9 @@ TOKEN_SPEC = [
     ('RPAREN',      r'\)'),                   # Right Parenthesis
     ('LBRACE',      r'\{'),                   # Left Brace
     ('RBRACE',      r'\}'),                   # Right Brace
+    ('LBRACKET',    r'\['),                   # Left Bracket
+    ('RBRACKET',    r'\]'),                   # Right Bracket
+    ('COMMA',       r','),                    # Comma
     ('WS',          r'[ \t]+'),               # Whitespace
     ('NEWLINE',     r'\n'),                   # Line endings
     ('MISMATCH',    r'.'),                    # Any other character

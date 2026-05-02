@@ -5,12 +5,38 @@ statement_list ::= statement { statement }
 statement ::= declaration_statement
             | print_statement
             | if_statement
+            | while_statement
+            | do_while_statement
+            | for_statement
+            | function_declaration
+            | return_statement
+            | expression_statement
 
-declaration_statement ::= "daulat" IDENTIFIER "=" expression ";"
+declaration_statement ::= [ type ] "daulat" IDENTIFIER "=" expression ";"
 
-print_statement ::= "farman" ( STRING | expression ) ";"
+type ::= "adad" | "ashariya" | "jumla" | "haqeeqat" | "fehrist"
 
-if_statement ::= "agar" "(" expression ")" "phir" statement_list [ "varna" statement_list ] "khatam" ";"
+print_statement ::= "farman" expression ";"
+
+if_statement ::= "agar" "(" expression ")" "phir" statement_list
+                 { "warna_agar" "(" expression ")" "phir" statement_list }
+                 [ "varna" statement_list ] "khatam" ";"
+
+while_statement ::= "jab_tak" "(" expression ")" "phir" statement_list "khatam" ";"
+
+do_while_statement ::= "dohrao" "{" statement_list "}" "jab_tak" "(" expression ")" ";"
+
+for_statement ::= "har" "(" declaration_statement expression ";" assignment_statement ")" "phir" statement_list "khatam" ";"
+
+assignment_statement ::= IDENTIFIER "=" expression
+
+function_declaration ::= "hukam" IDENTIFIER "(" [ parameter_list ] ")" "{" statement_list "}"
+
+parameter_list ::= IDENTIFIER { "," IDENTIFIER }
+
+return_statement ::= "waapsi" expression ";"
+
+expression_statement ::= expression ";"
 
 expression ::= boolean_expression
 
@@ -22,7 +48,22 @@ term ::= factor { ( "*" | "/" ) factor }
 
 factor ::= IDENTIFIER
          | NUMBER
+         | STRING
+         | boolean_literal
+         | array_literal
+         | function_call
+         | input_call
          | "(" expression ")"
+
+boolean_literal ::= "sach" | "ghalat"
+
+array_literal ::= "[" [ expression { "," expression } ] "]"
+
+function_call ::= IDENTIFIER "(" [ argument_list ] ")"
+
+input_call ::= "darkhwast" "(" STRING ")"
+
+argument_list ::= expression { "," expression }
 
 IDENTIFIER ::= [a-zA-Z_][a-zA-Z0-9_]*
 NUMBER ::= [0-9]+ ( "." [0-9]* )?

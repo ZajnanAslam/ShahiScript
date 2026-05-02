@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShahiScript - The Royal Compiler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <h1>ShahiScript</h1>
+            <p>The Royal Decree Parsing Visualizer</p>
+        </header>
+
+        <main class="dashboard">
+            <section class="editor-section panel">
+                <div class="panel-header">
+                    <h2>Royal Decree (Code)</h2>
+                    <button id="parse-btn" class="regal-btn">Issue Decree</button>
+                </div>
+                <textarea id="code-editor" spellcheck="false">Bismillah
+    adad daulat royalty = 100;
+    agar (royalty > 50) phir
+        farman "Welcome to the court";
+    khatam;
+AllahHafiz</textarea>
+            </section>
+
+            <section class="output-section panel">
+                <div class="tabs">
+                    <button class="tab-btn active" data-target="ast-view">Abstract Syntax Tree</button>
+                    <button class="tab-btn" data-target="tokens-view">Lexer Tokens</button>
+                </div>
+                
+                <div id="error-box" class="hidden"></div>
+                
+                <div class="tab-content active" id="ast-view">
+                    <div id="ast-container"></div>
+                </div>
+                
+                <div class="tab-content" id="tokens-view">
+                    <div id="tokens-container"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

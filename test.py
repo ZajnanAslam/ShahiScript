@@ -1,4 +1,6 @@
 from lexer import tokenize
+from parser import parse
+import json
 
 code = """Bismillah
     hukam greet(name) {
@@ -36,8 +38,12 @@ AllahHafiz"""
 
 if __name__ == "__main__":
     try:
+        print("Tokenizing...")
         tokens = tokenize(code)
-        for token in tokens:
-            print(token)
+        print(f"Found {len(tokens)} tokens.")
+        
+        print("Parsing...")
+        ast = parse(tokens)
+        print(json.dumps(ast, indent=2))
     except Exception as e:
         print(e)

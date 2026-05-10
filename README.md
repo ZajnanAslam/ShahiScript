@@ -237,14 +237,4 @@ ShahiScript/
 
 ---
 
-## 👥 Team
-
-| Name | Student ID |
-|---|---|
-| Muhammad Zajnan Aslam | 23K0880 |
-| Ali Aamir Khan | 23K0844 |
-| Arsal bin Mohsin | 23K0037 |
-
----
-
 *Created for **CS4031 Compiler Construction** — FAST-NUCES.* 🎓

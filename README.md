@@ -19,14 +19,6 @@ ShahiScript is a complete, custom-built programming language with a full **6-pha
 
 ---
 
-## 👥 Team Member Contributions
-
-- **[Member 1 Name - ID]** - Phase 1 (Lexical), Phase 2 (Syntax), Integration Testing
-- **[Member 2 Name - ID]** - Phase 3 (Semantic), Phase 4 (ICG), Target Code Gen
-- **[Member 3 Name - ID]** - Phase 5 (Optimization), Visualizer Dashboard, Documentation
-
----
-
 ## ✨ Language Features
 
 ### 🔤 Keywords

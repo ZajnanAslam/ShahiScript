@@ -1,3 +1,7 @@
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from errors import RoyalProtocolViolation
 
 class SymbolTable:
@@ -110,3 +114,23 @@ def analyze_semantics(ast):
     analyzer = SemanticAnalyzer()
     analyzer.analyze(ast)
     return analyzer
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python semantic.py <input_file.shahi>")
+        sys.exit(1)
+        
+    try:
+        from Phase1_Lexical.lexer import tokenize
+        from Phase2_Syntax.parser import parse
+        
+        with open(sys.argv[1], 'r') as f:
+            code = f.read()
+            
+        tokens = tokenize(code)
+        ast = parse(tokens)
+        analyze_semantics(ast)
+        print("--- Semantic Analysis: SUCCESS ---")
+        print("No semantic errors found. Symbol tables constructed properly.")
+    except Exception as e:
+        print(f"Semantic Error: {e}")

@@ -15,13 +15,21 @@
 
 Welcome to the **Royal Court of Computing**! 🏛️
 
-ShahiScript is a complete, custom-built programming language with a full compilation pipeline. Instead of ordinary keywords, programmers issue royal **decrees** (`farman`), declare **wealth** (`daulat`), and structure logic using a regal Urdu vocabulary. It comes with both a **Command-Line Interface (CLI)** and a beautiful **web-based AST visualizer**.
+ShahiScript is a complete, custom-built programming language with a full **6-phase compilation pipeline**. Instead of ordinary keywords, programmers issue royal **decrees** (`farman`), declare **wealth** (`daulat`), and structure logic using a regal Urdu vocabulary. It comes with both a **Command-Line Interface (CLI)** and a beautiful **web-based AST visualizer**.
 
 ---
 
-## ✨ Feature Overview
+## 👥 Team Member Contributions
 
-### 🔤 Language Features
+- **[Member 1 Name - ID]** - Phase 1 (Lexical), Phase 2 (Syntax), Integration Testing
+- **[Member 2 Name - ID]** - Phase 3 (Semantic), Phase 4 (ICG), Target Code Gen
+- **[Member 3 Name - ID]** - Phase 5 (Optimization), Visualizer Dashboard, Documentation
+
+---
+
+## ✨ Language Features
+
+### 🔤 Keywords
 | ShahiScript Keyword | Meaning | Purpose |
 |---|---|---|
 | `Bismillah` | In the name of God | Program start |
@@ -29,212 +37,101 @@ ShahiScript is a complete, custom-built programming language with a full compila
 | `daulat` | Wealth | Variable declaration |
 | `farman` | Decree | Print / output |
 | `darkhwast` | Request | User input |
-| `agar` | If | Conditional |
-| `warna_agar` | Else if | Else-if branch |
-| `varna` | Otherwise | Else branch |
-| `phir` | Then | Block opener |
-| `khatam` | Finished | Block closer |
+| `agar` / `phir` / `khatam` | If / Then / End | Conditionals |
 | `jab_tak` | As long as | While loop |
-| `dohrao` | Repeat | Do-while loop |
 | `har` | For every | For loop |
-| `hukam` | Command | Function declaration |
-| `waapsi` | Return | Return statement |
-| `sach` / `ghalat` | True / False | Boolean literals |
+| `hukam` / `waapsi` | Command / Return | Functions |
 
 ### 📐 Data Types
-| Keyword | Type |
-|---|---|
-| `adad` | Integer |
-| `ashariya` | Float / Decimal |
-| `jumla` | String |
-| `haqeeqat` | Boolean |
-| `fehrist` | Array / List |
+- `adad` (Integer), `ashariya` (Float), `jumla` (String), `haqeeqat` (Boolean), `fehrist` (Array).
 
 ---
 
-## 🏛️ Compiler Architecture
+## 🏛️ Compiler Architecture (CS4031 Deliverables)
 
-ShahiScript implements a complete **5-stage compilation pipeline**:
+ShahiScript implements a complete **6-stage compilation pipeline** to meet all course requirements:
 
-```
-Source Code (.shahi)
-        │
-        ▼
-┌─────────────────┐
-│  1. Lexer        │  lexer.py     — Regex-based tokenizer
-│  (Tokenization)  │               — Handles keywords, identifiers, literals
-└────────┬────────┘               — Line & column tracking for error reporting
-         │
-         ▼
-┌─────────────────┐
-│  2. Parser       │  parser.py    — Recursive Descent Parser
-│  (Syntax)        │               — Produces a full JSON Abstract Syntax Tree
-└────────┬────────┘               — Validates grammar via formal EBNF rules
-         │
-         ▼
-┌─────────────────┐
-│  3. Semantic     │  semantic.py  — Scoped Symbol Table (parent → child)
-│     Analyzer     │               — Catches undeclared variables
-└────────┬────────┘               — Validates function parameters and scopes
-         │
-         ▼
-┌─────────────────┐
-│  4. Optimizer    │  optimizer.py — Constant Math Folding (2 * 3 → 6)
-│  (AST Opt.)      │               — Dead Code Elimination after return
-└────────┬────────┘               — Compile-time boolean expression reduction
-         │
-         ▼
-┌─────────────────┐
-│  5. Interpreter  │  interpreter.py — Tree-walk interpreter
-│  (Execution)     │                — Scoped runtime environments
-└─────────────────┘                — Full function call stack with returns
-```
+1. **Lexical Analysis** (`Phase1_Lexical/lexer.py`): Regex-based tokenizer with line/column tracking.
+2. **Syntax Analysis** (`Phase2_Syntax/parser.py`): Recursive Descent Parser producing a JSON AST.
+3. **Semantic Analysis** (`Phase3_Semantic/semantic.py`): Scoped Symbol Table and variable validation.
+4. **Intermediate Code Gen** (`Phase4_ICG/icg.py`): Generates **Three Address Code (TAC)**.
+5. **Optimization** (`Phase5_Optimization/optimizer.py`): Constant Folding, DCE, and Algebraic Simplification.
+6. **Target Code Gen** (`Phase6_CodeGeneration/codegen.py`): Generates **Stack Machine Assembly**.
 
 ---
 
-## 🛠️ Quick Start (CLI)
+## 🛠️ Individual Phase Execution (Mandatory)
 
-### Prerequisites
-```bash
-pip install flask
-```
+Each phase can be executed independently from the root directory:
 
-### Running a Script
+| Phase | Command | Output |
+|-------|---------|--------|
+| **1. Lexical** | `python Phase1_Lexical/lexer.py TestCases/01_hello.shahi` | Tokens |
+| **2. Syntax** | `python Phase2_Syntax/parser.py TestCases/01_hello.shahi` | AST (JSON) |
+| **3. Semantic** | `python Phase3_Semantic/semantic.py TestCases/01_hello.shahi` | Semantic Check |
+| **4. ICG** | `python Phase4_ICG/icg.py TestCases/01_hello.shahi` | TAC |
+| **5. Optimization** | `python Phase5_Optimization/optimizer.py TestCases/01_hello.shahi` | Optimized AST |
+| **6. Code Gen** | `python Phase6_CodeGeneration/codegen.py TestCases/01_hello.shahi` | Stack ASM |
+
+---
+
+## 🚀 Complete Compiler Execution
+
 ```bash
 # Execute a standard royal script
-python compiler.py examples/01_hello.shahi
+python compiler.py TestCases/01_hello.shahi
 
-# Execute with full pipeline debug output (Tokens, AST, Optimization, Execution)
-python compiler.py examples/02_math_optimizer.shahi --debug
+# Execute with full pipeline debug output
+python compiler.py TestCases/02_math_optimizer.shahi --debug
 
-# Launch the Interactive REPL (type 'khatam' to exit)
+# Launch the Interactive REPL
 python compiler.py --interactive
 ```
-
-### CLI Flags
-| Flag | Description |
-|---|---|
-| `<file>` | Path to a `.shahi` source file to execute |
-| `--debug` | Print all 5 compiler phases with full output |
-| `--interactive` | Launch the interactive Read-Eval-Print Loop (REPL) |
 
 ---
 
 ## 🌐 Web Visualizer (Flask + D3.js)
 
-ShahiScript includes a royal-themed web dashboard for visually exploring the AST.
-
-### Launch the Web App
+Launch the web app to visualize the AST dynamically:
 ```bash
 python app.py
 ```
-Then open your browser at **`http://127.0.0.1:5000`**
-
-### Web UI Features
-- 📋 **Example Dropdown** — Instantly load any of the 6 bundled example programs
-- ▶️ **Issue Decree** — Compile and run the script right in the browser
-- 🌳 **View Tree** — Render the full AST as an interactive, zoomable D3.js graph
-- 📤 **Execution Output** — See the program's output directly in the UI
-- 🖥️ **Two-Page Layout** — Code + I/O on Page 1, AST visualization on Page 2
+Visit **`http://127.0.0.1:5000`** to see:
+- 🌳 **Interactive AST Tree** (Zoomable D3.js graph)
+- ▶️ **Live Execution** of royal decrees
+- 📋 **Example Library** for quick testing
 
 ---
 
-## 📜 Example Programs
+## 📸 Screenshots & Outputs
 
-Six fully-working example scripts are included in the `examples/` folder:
+> [!IMPORTANT]
+> Please include your actual screenshots here for the final submission.
 
-| File | Demonstrates |
-|---|---|
-| `01_hello.shahi` | Hello World, basic output with `farman` |
-| `02_math_optimizer.shahi` | Constant folding optimization at compile time |
-| `03_loops.shahi` | `jab_tak` (while), `dohrao` (do-while), `har` (for) loops |
-| `04_functions.shahi` | `hukam` declarations, arguments, `waapsi` (return) |
-| `05_scopes.shahi` | Block-scoped variables, nested scope resolution |
-| `06_interactive.shahi` | User input via `darkhwast`, string concatenation output |
-
-### Hello World in ShahiScript
-```
-Bismillah
-  farman "Aadaab Duniya!" ;
-AllahHafiz
-```
-
-### Functions Example
-```
-Bismillah
-  hukam jama(a, b) {
-    waapsi a + b ;
-  }
-  daulat adad natija = jama(10, 20) ;
-  farman natija ;
-AllahHafiz
-```
-
-### Loops Example
-```
-Bismillah
-  har (daulat adad i = 0 ; i < 5 ; i = i + 1) phir
-    farman i ;
-  khatam ;
-AllahHafiz
-```
-
----
-
-## ⚙️ Semantic Analysis Details
-
-The `SemanticAnalyzer` performs a **two-pass scope-aware validation**:
-
-- **Block Scoping**: Every `agar`, `jab_tak`, `har`, and `hukam` block gets its own child `SymbolTable` that inherits from its parent.
-- **Undeclared Variable Detection**: Using the `SymbolTable.lookup()` chain, any reference to an undeclared `daulat` throws a `RoyalProtocolViolation`.
-- **Redeclaration Prevention**: Re-declaring a variable in the same scope raises an error immediately.
-- **Function Parameter Injection**: Function parameters are injected into the function's own scope automatically.
-
----
-
-## ⚡ Optimizer Details
-
-The `Optimizer` performs two transformations on the AST **before** execution:
-
-1. **Constant Math Folding**: Any `BinaryExpression` with two `NumberLiteral` nodes is pre-computed at compile time into a single literal. This includes `+`, `-`, `*`, `/`, `>`, `<`, `==`, `!=`.
-2. **Dead Code Elimination (DCE)**: Any statements appearing after a `waapsi` (return) inside a function body are silently removed from the AST, as they can never be reached.
-
----
-
-## 🚨 Error Handling
-
-ShahiScript uses a unified `RoyalProtocolViolation` exception class (in `errors.py`) that provides:
-- Clear, human-readable error messages
-- Stage identification (Lexer / Semantic / Runtime)
-- Line and column numbers for lexer-level errors
+1. **Tokens Output**: Phase 1 console screenshot.
+2. **AST Visualization**: Web Dashboard `View Tree` screenshot.
+3. **TAC & Assembly**: Phase 4 and Phase 6 console output.
+4. **Final Execution**: Output of a complex test case.
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 ShahiScript/
-├── compiler.py          # CLI entry point — orchestrates the full pipeline
-├── lexer.py             # Regex-based tokenizer with line/column tracking
-├── parser.py            # Recursive descent parser → JSON AST
-├── semantic.py          # Scoped symbol table & semantic validator
-├── optimizer.py         # Constant folding + dead code elimination
-├── interpreter.py       # Tree-walk interpreter (runtime execution)
-├── errors.py            # Unified RoyalProtocolViolation error class
-├── app.py               # Flask web server for the AST visualizer
-├── grammar.ebnf         # Formal EBNF grammar specification
-├── Language_Reference_Manual.md  # Language reference documentation
-├── examples/            # 6 example .shahi programs
-│   ├── 01_hello.shahi
-│   ├── 02_math_optimizer.shahi
-│   ├── 03_loops.shahi
-│   ├── 04_functions.shahi
-│   ├── 05_scopes.shahi
-│   └── 06_interactive.shahi
-├── templates/           # Flask HTML templates (web UI)
-└── static/              # CSS, JS, D3.js assets (web UI)
+├── Phase1_Lexical/       # Tokenization
+├── Phase2_Syntax/        # Parsing
+├── Phase3_Semantic/      # Scoping & Symbols
+├── Phase4_ICG/           # Intermediate Code (TAC)
+├── Phase5_Optimization/  # Code Optimization
+├── Phase6_CodeGeneration/# Target Code (Assembly)
+├── Interpreter/          # Tree-Walk Runtime
+├── TestCases/            # .shahi test scripts
+├── Documentation/        # Manuals & Grammar
+├── app.py                # Web Server
+├── compiler.py           # CLI Main
+└── README.md             # This Document
 ```
 
 ---
-
 *Created for **CS4031 Compiler Construction** — FAST-NUCES.* 🎓

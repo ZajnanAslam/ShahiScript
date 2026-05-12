@@ -59,8 +59,10 @@ AllahHafiz</textarea>
                 <section class="output-section panel">
                     <div class="panel-header">
                         <div class="tabs">
-                            <button class="tab-btn active" data-target="ast-view">Abstract Syntax Tree</button>
-                            <button class="tab-btn" data-target="tokens-view">Lexer Tokens</button>
+                            <button class="tab-btn" data-target="tokens-view">1. Lexer Tokens</button>
+                            <button class="tab-btn active" data-target="ast-view">2. Abstract Syntax Tree</button>
+                            <button class="tab-btn" data-target="tac-view">3. Intermediate Code</button>
+                            <button class="tab-btn" data-target="asm-view">4. Target Code</button>
                         </div>
                         <button id="back-btn" class="regal-btn outline">Return to Decree</button>
                     </div>
@@ -73,6 +75,14 @@ AllahHafiz</textarea>
                     
                     <div class="tab-content" id="tokens-view">
                         <div id="tokens-container"></div>
+                    </div>
+                    
+                    <div class="tab-content" id="tac-view">
+                        <pre id="tac-container" style="color: #a6e22e; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; padding: 1rem; white-space: pre-wrap; margin: 0;"></pre>
+                    </div>
+                    
+                    <div class="tab-content" id="asm-view">
+                        <pre id="asm-container" style="color: #a6e22e; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; padding: 1rem; white-space: pre-wrap; margin: 0;"></pre>
                     </div>
                 </section>
             </div>

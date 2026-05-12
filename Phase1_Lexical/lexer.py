@@ -1,8 +1,14 @@
 import re
+import os
+import sys
+
+# Add parent directory to sys.path so we can import 'errors'
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from errors import RoyalProtocolViolation
 
 # Token specifications
 TOKEN_SPEC = [
+    ('COMMENT',     r'//.*'),                 # Single-line comment
     ('BISMILLAH',   r'\bBismillah\b'),        # Start of program
     ('ALLAH_HAFIZ', r'\bAllahHafiz\b'),       # End of program
     ('DAULAT',      r'\bdaulat\b'),           # Variable declaration
@@ -78,7 +84,7 @@ def tokenize(code):
         if type == 'NEWLINE':
             line_start = match.end()
             line_num += 1
-        elif type == 'WS':
+        elif type in ('WS', 'COMMENT'):
             pass
         elif type == 'MISMATCH':
             raise RoyalProtocolViolation(f"Unexpected character {value!r}", line_num, column)
@@ -92,3 +98,18 @@ def tokenize(code):
         match = get_token(code, pos)
         
     return tokens
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python lexer.py <input_file.shahi>")
+        sys.exit(1)
+        
+    try:
+        with open(sys.argv[1], 'r') as f:
+            code = f.read()
+        tokens = tokenize(code)
+        print("--- Lexical Analysis: Tokens ---")
+        for t in tokens:
+            print(f"{t.type}: {t.value}")
+    except Exception as e:
+        print(f"Lexical Error: {e}")

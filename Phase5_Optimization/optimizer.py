@@ -1,3 +1,7 @@
+import os
+import sys
+import json
+
 class Optimizer:
     def optimize(self, ast):
         return self.visit(ast)
@@ -31,9 +35,9 @@ class Optimizer:
     def visit_BinaryExpression(self, node):
         left = self.visit(node['left'])
         right = self.visit(node['right'])
+        op = node['operator']
         
         if left.get('type') == 'NumberLiteral' and right.get('type') == 'NumberLiteral':
-            op = node['operator']
             try:
                 l_val = float(left['value']) if '.' in left['value'] else int(left['value'])
                 r_val = float(right['value']) if '.' in right['value'] else int(right['value'])
@@ -52,7 +56,47 @@ class Optimizer:
             except:
                 pass
                 
+        # Algebraic Simplification
+        if op == '*':
+            if left.get('type') == 'NumberLiteral' and left['value'] == '0':
+                return {"type": "NumberLiteral", "value": "0"}
+            if right.get('type') == 'NumberLiteral' and right['value'] == '0':
+                return {"type": "NumberLiteral", "value": "0"}
+            if left.get('type') == 'NumberLiteral' and left['value'] == '1':
+                return right
+            if right.get('type') == 'NumberLiteral' and right['value'] == '1':
+                return left
+        if op == '+':
+            if left.get('type') == 'NumberLiteral' and left['value'] == '0':
+                return right
+            if right.get('type') == 'NumberLiteral' and right['value'] == '0':
+                return left
+        if op == '-':
+            if right.get('type') == 'NumberLiteral' and right['value'] == '0':
+                return left
+                
         return {"type": "BinaryExpression", "operator": node['operator'], "left": left, "right": right}
 
 def optimize_ast(ast):
     return Optimizer().optimize(ast)
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python optimizer.py <input_file.shahi>")
+        sys.exit(1)
+        
+    try:
+        sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        from Phase1_Lexical.lexer import tokenize
+        from Phase2_Syntax.parser import parse
+        
+        with open(sys.argv[1], 'r') as f:
+            code = f.read()
+            
+        tokens = tokenize(code)
+        ast = parse(tokens)
+        opt_ast = optimize_ast(ast)
+        print("--- Optimization: Optimized AST ---")
+        print(json.dumps(opt_ast, indent=2))
+    except Exception as e:
+        print(f"Optimization Error: {e}")

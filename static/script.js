@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorBox = document.getElementById('error-box');
     const tokensContainer = document.getElementById('tokens-container');
     const astContainer = document.getElementById('ast-container');
+    const tacContainer = document.getElementById('tac-container');
+    const asmContainer = document.getElementById('asm-container');
     const executionOutput = document.getElementById('execution-output');
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -71,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.success) {
                 renderTokens(data.tokens);
                 renderAST(data.ast);
+                tacContainer.textContent = data.tac ? data.tac.join('\n') : "No Intermediate Code Generated.";
+                asmContainer.textContent = data.asm ? data.asm.join('\n') : "No Target Code Generated.";
                 executionOutput.textContent = data.output || "No output generated.";
             } else {
                 showError(data.error);
@@ -90,6 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
         errorBox.classList.remove('hidden');
         tokensContainer.innerHTML = '';
         astContainer.innerHTML = '';
+        tacContainer.textContent = '';
+        asmContainer.textContent = '';
     }
 
     function renderTokens(tokens) {

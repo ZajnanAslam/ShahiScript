@@ -1,0 +1,83 @@
+Bismillah
+
+    // 1. Data Types & Variable Declarations
+    jumla daulat title = "--- The Grand Royal Execution ---";
+    farman title;
+    
+    adad daulat tax_rate = 5;
+    ashariya daulat gold_multiplier = 1.5;
+    haqeeqat daulat is_kingdom_safe = sach;
+    
+    // Arrays (if fully supported by your runtime, else just basic types)
+    // fehrist daulat treasury = [100, 200, 300];
+
+    // 2. Input/Output (darkhwast & farman)
+    jumla daulat visitor_name = "Traveler";
+    // visitor_name = darkhwast("Enter your name, traveler: ");
+    farman "Welcome, " + visitor_name;
+
+    // 3. Conditional Statements (agar, warna_agar, varna)
+    agar (is_kingdom_safe == sach) phir
+        farman "The kingdom is prosperous!";
+    khatam;
+
+    adad daulat treasury_gold = 50;
+    agar (treasury_gold > 100) phir
+        farman "We are rich!";
+    khatam;
+    warna_agar (treasury_gold == 50) phir
+        farman "The treasury is stable.";
+    khatam;
+    varna
+        farman "We need more gold!";
+    khatam;
+
+    // 4. Loops
+    
+    // A. The 'har' loop (For Loop)
+    farman "Collecting daily taxes:";
+    har (adad daulat day = 1; day < 4; day = day + 1) phir
+        farman "Tax collected for day: ";
+        farman day;
+    khatam;
+
+    // B. The 'jab_tak' loop (While Loop)
+    farman "Mining for gems...";
+    adad daulat gems = 0;
+    jab_tak (gems < 2) phir
+        gems = gems + 1;
+        farman "Found a gem!";
+    khatam;
+
+    // C. The 'dohrao' loop (Do-While Loop)
+    adad daulat stamina = 1;
+    dohrao {
+        farman "Training the royal guards...";
+        stamina = stamina - 1;
+    } jab_tak (stamina > 0);
+
+    // 5. Functions (hukam & waapsi)
+    hukam calculate_wealth(base_gold, multiplier) {
+        adad daulat total = base_gold * multiplier;
+        // Optimization Test: dead code elimination check
+        waapsi total;
+        farman "This should never print due to dead code elimination!";
+    }
+
+    // 6. Function Calling & Optimization test (Constant Folding + Algebraic Simplification)
+    farman "Calculating total wealth...";
+    
+    adad daulat final_wealth = calculate_wealth(100, 2);
+    
+    // Algebraic simplification trigger: 0 * something = 0
+    adad daulat lost_gold = final_wealth * 0; 
+    
+    farman "Total Wealth:";
+    farman final_wealth;
+    
+    farman "Lost Gold:";
+    farman lost_gold;
+
+    farman "--- The Royal Decree has Concluded ---";
+
+AllahHafiz

@@ -1,3 +1,8 @@
+import os
+import sys
+import json
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from errors import RoyalProtocolViolation
 
 class Parser:
@@ -265,3 +270,19 @@ class Parser:
 
 def parse(tokens):
     return Parser(tokens).parse()
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python parser.py <input_file.shahi>")
+        sys.exit(1)
+        
+    try:
+        from Phase1_Lexical.lexer import tokenize
+        with open(sys.argv[1], 'r') as f:
+            code = f.read()
+        tokens = tokenize(code)
+        ast = parse(tokens)
+        print("--- Syntax Analysis: AST ---")
+        print(json.dumps(ast, indent=2))
+    except Exception as e:
+        print(f"Syntax Error: {e}")
